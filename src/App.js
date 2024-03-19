@@ -1,47 +1,9 @@
 import Logo from './images/logo.png';
 
 import { useState, useEffect, useRef } from 'react';
-import videojs from 'video.js';
 import ReactHlsPlayer from '@ducanh2912/react-hls-player';
-import 'video.js/dist/video-js.css';
-
-const Video = (props) => {
-  const videoNode = useRef(null);
-  const [player, setPlayer] = useState(null);
-  useEffect(() => {
-    if (videoNode.current) {
-      const _player = videojs(videoNode.current, props);
-      setPlayer(_player);
-      return () => {
-        if (player !== null) {
-          player.dispose();
-        }
-      };
-    }
-  }, []);
-
-  return (
-    <div data-vjs-player>
-      <video ref={videoNode} className="video-js"></video>
-    </div>
-  );
-};
 
 function App() {
-  const play = {
-    fill: true,
-    fluid: true,
-    autoplay: true,
-    controls: true,
-    preload: 'metadata',
-    sources: [
-      {
-        src: 'http://localhost:8083/stream/pattern/channel/0/hls/live/index.m3u8',
-        type: 'application/x-mpegURL',
-      },
-    ],
-  };
-
   return (
     <>
       <header className="absolute w-full z-30">
@@ -57,13 +19,7 @@ function App() {
           </div>
         </div>
       </header>
-      <ReactHlsPlayer
-        src="http://si0s.l.dedikuoti.lt/live/mystream.m3u8"
-        autoPlay={true}
-        controls={true}
-        width="100%"
-        height="auto"
-      />
+
       <section>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
           {/* Illustration behind hero content */}
@@ -120,7 +76,13 @@ function App() {
             </div>
 
             <div>
-              <Video {...play} />
+              <ReactHlsPlayer
+                src="http://si0s.l.dedikuoti.lt/live/mystream.m3u8"
+                autoPlay={true}
+                controls={true}
+                width="100%"
+                height="auto"
+              />
             </div>
           </div>
         </div>
